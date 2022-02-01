@@ -1,0 +1,23 @@
+main{
+  width: 100%;
+  margin-block: 50px;
+}
+
+article{
+    width: vw;
+    margin: 50px;
+}
+
+.pokemon_container{
+    background-color: white;  
+    width: 70rem;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+}
+
+.pageButton:focus{
+  border-style: none;
+}

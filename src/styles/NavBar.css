@@ -1,0 +1,24 @@
+*{
+    padding: 0;
+    margin:0;
+}
+
+.color-navbar{
+    background-color: #e83e34;
+}
+
+
+.nav-link-custom:hover{
+    margin-bottom: -14px;
+    border-bottom: 3px solid black;
+}
+
+.nav-dropdown-custom{
+    margin-bottom: -11px;
+}
+
+.nav-dropdown-custom:hover{
+    margin-bottom: -14px;
+    border-bottom: 3px solid black;
+    color: blue;
+}

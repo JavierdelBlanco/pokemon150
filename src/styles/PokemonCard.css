@@ -1,0 +1,22 @@
+.card-custom{
+    margin: 10px;
+    width: 200px;
+}
+
+.card-image-custom{
+    border: 3px solid #e83e34;
+    border-bottom: 1px solid #000;
+}
+
+.cardBody-custom{
+    background-color: #fff;
+    border: 3px solid #ddd;
+    border-top: 1px solid #000;
+}
+
+.card-custom:hover{
+    transition: 0.5s;
+    transform: scale(1.1,1.1);
+    z-index: 1;
+    cursor: pointer;
+}
