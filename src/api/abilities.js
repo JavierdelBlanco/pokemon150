@@ -1,9 +1,21 @@
 const getAbilities = async () => {
     const url = 'https://pokeapi.co/api/v2/ability/';
-    const data = await fetch(url)
-    .then(res => res.json())
-    .catch(error => console.log(error));
-    return data.results;
+    try {
+            let res = await fetch(url);
+            if(!res.ok){
+                throw {
+                err: true,
+                status: res.status,
+                statusText: !res.statusText ? 'An error has occurred'
+                                            : res.statusText
+                }
+            }
+            const data = await res.json();
+            return data;
+
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export {

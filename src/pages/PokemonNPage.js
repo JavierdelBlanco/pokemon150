@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Card, ListGroup, Tab, Tabs } from "react-bootstrap";
-import { getPokemon } from "../api/pokemon";
 import { TypeBadge } from "../components/TypeBadge";
 import { useParams } from "react-router-dom";
+import { usePokemon } from "../context/pokemon";
 import '../styles/PokemonNPage.css'
+import { Loading } from "../components/Loading";
 
 const PokemonNPage = () => {
+    
     const[pokemon, setPokemon] = useState({
         id: 0,
         name: '', 
@@ -18,32 +20,18 @@ const PokemonNPage = () => {
         stats: []
     });
 
-    const {id} = useParams();
-    console.log('id',id);  
-    React.useEffect( () => { 
-
-        const fetchPokemon = async() => {
-            const data = await getPokemon(id);
-            console.log('data', data);
-            setPokemon({
-                id: data.id,
-                name: data.name.charAt(0).toUpperCase() + data.name.slice(1), 
-                sprites: data.sprites.versions["generation-v"]["black-white"], 
-                height: data.height,
-                weight: data.weight,
-                types: data.types,
-                abilities: data.abilities,
-                moves: data.moves,
-                stats: data.stats
-            });
-        }
-        fetchPokemon();
-
-    }, []);
+    const {getFullPokemon, isPending} = usePokemon();
+    const {id} = useParams(); 
+    React.useEffect( () => {
+        if(!isPending){
+            setPokemon(getFullPokemon(id));
+        };
+    },[isPending]);
 
 
-    return (
-        <main>
+
+    return isPending ? <Loading/>
+                     : <main>
             <div className="container">
                 <Card className='card-information'>
                     <Card.Header>
@@ -70,7 +58,7 @@ const PokemonNPage = () => {
                 <div className='pokemon-sprites'>
                         <Tabs  defaultActiveKey="normal" className="mb-3">
                             <Tab className="tab-custom-1" eventKey="normal" title="Normal">
-                                <Tabs className='tabs-custom' defautActiveKey="front" className="mb-3">
+                                <Tabs className='tabs-custom' defaultActiveKey="front" className="mb-3">
                                     <Tab className='tab-custom-2' eventKey="front" title="Front">
                                         <Card.Img variant='top' src={pokemon.sprites.front_default}/>
                                     </Tab>
@@ -80,7 +68,7 @@ const PokemonNPage = () => {
                                 </Tabs>
                             </Tab>
                             <Tab className='tab-custom-1' eventKey="shiny" title="Shiny">
-                                <Tabs className='tabs-custom'  defautActiveKey="front" className="mb-3">
+                                <Tabs className='tabs-custom'  defaultActiveKey="front" className="mb-3">
                                     <Tab className='tab-custom-2' eventKey="front" title="Front">
                                         <Card.Img variant='top' src={pokemon.sprites.front_shiny}/>
                                     </Tab>
@@ -93,7 +81,7 @@ const PokemonNPage = () => {
                 </div>
             </div>
         </main>
-    )
+        
 }
 
 export {PokemonNPage}
