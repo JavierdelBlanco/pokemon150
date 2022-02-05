@@ -1,5 +1,5 @@
-.container{
-    margin: 0;
+.main_information{
+    margin-bottom: 30px;
     display: flex;
     justify-content: center;
 }
@@ -31,4 +31,14 @@
 .card-name{
    align-self: center;
    margin-inline: 20px;
+}
+
+.other_information{
+    margin: 30px;
+    display: flex;
+}
+
+.table_custom{
+    margin: 20px;
+    height: fit-content;
 }

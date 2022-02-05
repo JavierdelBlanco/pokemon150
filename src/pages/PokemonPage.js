@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Pagination } from "react-bootstrap";
 import { PokemonCard } from "../components/PokemonCard";
 import { usePokemon } from "../context/pokemon";
@@ -12,8 +12,10 @@ const [pokemonCards,setPokemonCards] = React.useState([]);
 const [page,setPage] = React.useState(1);
 
 const{isPending} = usePokemon();
+const[loading,setLoading] = useState(true);
 
 const cargarPokemon = () => { 
+    setLoading(true);
     let x = [];
     let first = (page - 1) * 30 + 1;
     let quantity =  (page === 6) ? 1 : 30;
@@ -21,37 +23,37 @@ const cargarPokemon = () => {
         x[i] = <PokemonCard key={first + i} id={first + i} />
     }
     setPokemonCards(x);
+    setLoading(false);
 }
 
 React.useEffect( () => {
-  
   cargarPokemon();
-
 }, [page]);
 
 
-return isPending ? <Loading/>
-                 : <main>
-                      <article className="text">
-                        <h2>First Generation</h2>
-                        <p>A list of the original 151 Pokémon is shown below.</p>
-                        <Pagination className="pagination-custom">
-                          <Pagination.First disabled={1 === page} onClick={() => setPage(1)}/>
-                          <Pagination.Prev  disabled={1 === page} onClick={() => setPage((page === 1) ? 1 : (page - 1))}/>
-                          <Pagination.Item key={1}  active={1 === page} onClick={() => setPage(1)}>1</Pagination.Item>
-                          <Pagination.Item key={2}  active={2 === page} onClick={() => setPage(2)}>2</Pagination.Item>
-                          <Pagination.Item key={3}  active={3 === page} onClick={() => setPage(3)}>3</Pagination.Item>
-                          <Pagination.Item key={4}  active={4 === page} onClick={() => setPage(4)}>4</Pagination.Item>
-                          <Pagination.Item key={5}  active={5 === page} onClick={() => setPage(5)}>5</Pagination.Item>
-                          <Pagination.Item key={6}  active={6 === page} onClick={() => setPage(6)}>6</Pagination.Item>
-                          <Pagination.Next  disabled={6 === page} onClick={() => setPage((page === 6) ? 6 : (page + 1))}/>
-                          <Pagination.Last  disabled={6 === page} className="pageButton" onClick={() => setPage(6)}/>
-                        </Pagination>
-                      </article>
-                      <div className='pokemon_container'>
-                        {pokemonCards}
-                      </div>  
-                    </main>   
+return  <main>
+            <article className="text">
+                <h2>Pokemon</h2>
+                <p>A list of the original 151 Pokémon is shown below.</p>
+                <Pagination className="pagination-custom">
+                    <Pagination.First disabled={1 === page} onClick={() => setPage(1)}/>
+                    <Pagination.Prev  disabled={1 === page} onClick={() => setPage((page === 1) ? 1 : (page - 1))}/>
+                    <Pagination.Item key={1}  active={1 === page} onClick={() => setPage(1)}>1</Pagination.Item>
+                    <Pagination.Item key={2}  active={2 === page} onClick={() => setPage(2)}>2</Pagination.Item>
+                    <Pagination.Item key={3}  active={3 === page} onClick={() => setPage(3)}>3</Pagination.Item>
+                    <Pagination.Item key={4}  active={4 === page} onClick={() => setPage(4)}>4</Pagination.Item>
+                    <Pagination.Item key={5}  active={5 === page} onClick={() => setPage(5)}>5</Pagination.Item>
+                    <Pagination.Item key={6}  active={6 === page} onClick={() => setPage(6)}>6</Pagination.Item>
+                    <Pagination.Next  disabled={6 === page} onClick={() => setPage((page === 6) ? 6 : (page + 1))}/>
+                    <Pagination.Last  disabled={6 === page} className="pageButton" onClick={() => setPage(6)}/>
+                </Pagination>     
+            </article>     
+
+            {isPending || loading ? <Loading/>
+                                  : <div className='pokemon_container'>
+                                      {pokemonCards}
+                                    </div> } 
+        </main>   
 }
 
 export {PokemonPage}

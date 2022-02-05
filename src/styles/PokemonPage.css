@@ -3,11 +3,6 @@ main{
   margin-block: 50px;
 }
 
-article{
-    width: vw;
-    margin: 50px;
-}
-
 .pokemon_container{
     background-color: white;  
     width: 70rem;

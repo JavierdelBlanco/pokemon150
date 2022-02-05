@@ -3,12 +3,13 @@ const getAbilities = async () => {
     try {
             let res = await fetch(url);
             if(!res.ok){
-                throw {
+                let error = {
                 err: true,
                 status: res.status,
                 statusText: !res.statusText ? 'An error has occurred'
                                             : res.statusText
                 }
+                throw error;
             }
             const data = await res.json();
             return data;

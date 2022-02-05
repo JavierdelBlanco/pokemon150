@@ -1,3 +1,8 @@
 ul{
     list-style: none;
 }
+
+article{
+    width: vw;
+    margin: 50px;
+}
