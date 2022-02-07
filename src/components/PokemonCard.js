@@ -22,12 +22,16 @@ const PokemonCard = ({id}) => {
         if(!isPending){
             setPokemon(getPokemonData(id));
         };
-    },[]);
+        
+    },[id]);
 
     return (
-    <Card className='card-custom' bg='light' onClick={() => navigate("/pokedex/pokemon/" + id)} >
-        <Card.Img className='card-image-custom' variant='top' src={pokemon.sprite}/>
-        <Card.Body className='cardBody-custom'>
+    <Card className='card_custom' bg='light' onClick={() => {
+        window.scrollTo(0,0);
+        navigate(`/pokedex/pokemon/${id}`)
+    }}>
+        <Card.Img className='cardImage' variant='top' src={pokemon.sprite}/>
+        <Card.Body className='cardBody'>
             <Card.Title>{pokemon.name} {'#' + id}</Card.Title>
             {pokemon.types.map( (x,i) => <TypeBadge key={i} type={x.type.name} /> )}
         </Card.Body>

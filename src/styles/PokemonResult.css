@@ -1,0 +1,35 @@
+.result{
+    height: fit-content;
+    width: 700px;
+    display: flex;
+}
+
+.resultImageContainer{
+    width: fit-content;
+}
+
+.resultImage{
+    width: 100px;
+}
+
+
+.resultBody{
+    padding: 10px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.result:hover{
+    transition: 0.25s;;
+    cursor: pointer;
+}
+
+.result:hover .resultImage{
+    background-color: #eee;
+}
+
+.result:hover .resultBody{
+    background-color: #eee;
+}

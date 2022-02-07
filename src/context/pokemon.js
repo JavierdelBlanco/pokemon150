@@ -54,10 +54,16 @@ const PokemonProvider = (props) => {
         return pokemonList[id - 1];
     }
 
+    function getPokemonForSearch(){
+      const pokemonNames = pokemonList.map( (x) => ({id: x.id, name: x.name}))
+      return pokemonNames;
+    }
+
     const value = { 
         isPending, 
         getPokemonData, 
         getFullPokemon,
+        getPokemonForSearch,
        }
     
 

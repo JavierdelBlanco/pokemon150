@@ -6,7 +6,9 @@ import '../styles/NavBar.css'
 
 const NavBar = () => {
 
+    const [word, setWord] = React.useState('');
     const navigate = useNavigate();
+
 
     return (
     
@@ -19,12 +21,25 @@ const NavBar = () => {
         <Container>
             <Form className="d-flex">
                 <FormControl
-                type="search"
-                placeholder="Search for a Pokemon"
-                className="me-1"
-                aria-label="Search"
-            />
-                <Button variant="dark">Search</Button>
+                    type="search"
+                    placeholder="Search for a Pokemon"
+                    className="me-1"
+                    aria-label="Search"
+                    onChange={(e) => setWord(e.target.value)}
+                    onKeyPress={(e) => {
+                        if(e.key === 'Enter'){
+                            if (word !== '') {
+                                e.preventDefault();
+                                navigate(`/search=${word}`);
+                            }       
+                        }
+                    }}
+                />
+                <Button onClick={ (e) => {
+                    if (word !== '') {
+                        navigate(`/search=${word}`);
+                    }
+                }} variant="dark">Search</Button>
             </Form>
         </Container>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

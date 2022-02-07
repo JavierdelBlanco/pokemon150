@@ -8,6 +8,7 @@ import { MovesPage } from './pages/MovesPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { PokemonPage } from './pages/PokemonPage';
 import { PokemonNPage } from './pages/PokemonNPage';
+import { SearchPage } from './pages/SearchPage';
 import { PokemonProvider } from "./context/pokemon";
 import './App.css'
 
@@ -25,6 +26,7 @@ const App = () => {
             <Route path='/pokedex/moves' element={<MovesPage/>}/>
             <Route path='/pokedex/abilities' element={<AbilitiesPage/>}/>
             <Route path='/favorites' element={<FavoritesPage/>}/>
+            <Route path='/search=:word' element={<SearchPage/>}/>
             <Route path='/*' element={<NotFoundPage/>}/>
           </Routes>
         </div>

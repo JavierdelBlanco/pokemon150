@@ -1,6 +1,6 @@
 const getPokemon = async (id) => {
 
-    const url = 'https://pokeapi.co/api/v2/pokemon/' + id;
+    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
 
     try {
             let res = await fetch(url);
@@ -23,7 +23,7 @@ const getPokemon = async (id) => {
 
 const getPokemonInfo = async (id) => {
 
-    const url = 'https://pokeapi.co/api/v2/pokemon-species/' + id;
+    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
 
     try {
             let res = await fetch(url);
