@@ -22,7 +22,7 @@ const PokemonNPage = () => {
 
     const {getFullPokemon, isPending} = usePokemon();
     const {id} = useParams(); 
-    
+
     React.useEffect( () => {
         if(!isPending){
             setPokemon(getFullPokemon(id));

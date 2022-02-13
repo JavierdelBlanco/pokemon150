@@ -15,10 +15,42 @@
 }
 
 .card_custom:hover{
+    position: relative;
     transition: 0.5s;
     transform: scale(1.1,1.1);
     z-index: 1;
     cursor: pointer;
 }
 
+.icon_container{
+    display: flex;
+    justify-content: center;
+    height: 10px;
+}
 
+.heart{
+    visibility: hidden;
+    position: relative;
+    bottom: 90px;
+    z-index: 2;
+}
+
+.heart:hover{
+    color: #e83e34;
+}
+
+.card_custom:hover .heart{
+    visibility: visible;
+    visibility: visible;
+    transition: 0.1s;
+    transform: scale(1.5,1.5);
+
+}
+
+.heart_liked{
+    visibility: visible;
+    position: relative;
+    bottom: 90px;
+    color: #e83e34;
+    transform: scale(1.5,1.5);
+}

@@ -21,7 +21,6 @@ const PokemonResult = ({id}) => {
     
     return (
         <div className='result' onClick={() => {
-            window.scrollTo(0,0);
             navigate(`/pokedex/pokemon/${id}`)
         }}>
             <div  className='resultImageContainer'>

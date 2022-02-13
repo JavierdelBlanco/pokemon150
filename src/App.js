@@ -10,6 +10,7 @@ import { PokemonPage } from './pages/PokemonPage';
 import { PokemonNPage } from './pages/PokemonNPage';
 import { SearchPage } from './pages/SearchPage';
 import { PokemonProvider } from "./context/pokemon";
+import { ScrollToTop } from './components/ScrollToTop';
 import './App.css'
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
       <PokemonProvider>
       <BrowserRouter>
         <div className="App">
+          <ScrollToTop/>
           <NavBar/>
           <Routes>
             <Route path='/' element={<HomePage/>}/>
