@@ -1,0 +1,20 @@
+main{
+  width: 100%;
+  margin-block: 50px;
+}
+
+.favorites_container{
+    background-color: white;  
+    width: 70rem;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+.not_found_text{
+   padding: 10px;
+   margin: auto;
+   font-size: x-large;
+   border: 1px solid #000;
+}

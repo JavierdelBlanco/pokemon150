@@ -3,11 +3,26 @@ import { Card, ListGroup, Tab, Table, Tabs } from "react-bootstrap";
 import { TypeBadge } from "../components/TypeBadge";
 import { useParams } from "react-router-dom";
 import { usePokemon } from "../context/pokemon";
-import '../styles/PokemonNPage.css'
 import { Loading } from "../components/Loading";
+import { FaHeart, FaHeartBroken } from 'react-icons/fa';
+import '../styles/PokemonNPage.css'
+
+
 
 const PokemonNPage = () => {
     
+    const handleFavorite = (id) => {
+        let favorites = localStorage.getItem("Favorites");
+        favorites = favorites !== null ? JSON.parse(favorites) : [];
+        if(favorites.includes(id)){
+            favorites = favorites.filter((x) => x !== id);
+        }else favorites.push(id);
+        favorites = localStorage.setItem("Favorites", JSON.stringify(favorites));
+        console.log(localStorage.getItem("Favorites"));
+        return null
+    }
+
+
     const[pokemon, setPokemon] = useState({
         id: 0,
         name: '', 
@@ -20,14 +35,18 @@ const PokemonNPage = () => {
         stats: []
     });
 
+    const [liked,setLiked] = React.useState(null);
+    const [heartHover,setHeartHover] = React.useState(false);
+
     const {getFullPokemon, isPending} = usePokemon();
     const {id} = useParams(); 
 
     React.useEffect( () => {
         if(!isPending){
+            setLiked(localStorage.getItem("Favorites") !== null ? JSON.parse(localStorage.getItem("Favorites")).includes(pokemon.id) : false);
             setPokemon(getFullPokemon(id));
         };
-    },[isPending]);
+    },[isPending,liked,heartHover]);
 
     const Moves = () =>{
         let list = [];
@@ -56,15 +75,29 @@ const PokemonNPage = () => {
         return name;
     }
 
+    const Icon = ({liked, hover}) => {
+        const heartClass = liked ? 'heart_liked_n' : 'heart_n';
+        
+        return (
+            (hover && liked && <FaHeartBroken className="heart_liked_n"/>) || <FaHeart className={heartClass}/>
+        );
+    }
+
     return isPending 
             ? <Loading/>
             : <main>
             <div className="main_information">
                 <Card className='card-information'>
-                    <Card.Header>
+                    <Card.Header className="card_header_custom">
                         <div className='card-title'>
                             <h2> #{pokemon.id}</h2> 
-                            <h2 className='card-name'>{fixName(pokemon.name)}</h2>     
+                            <h2 className='card-name'>{fixName(pokemon.name)}</h2>
+                        <div className="icon_container_n" 
+                                onMouseEnter={() => setHeartHover(true)} 
+                                onMouseLeave={() => setHeartHover(false)} 
+                                onClick={() => handleFavorite(pokemon.id)}>
+                                <Icon liked={liked} hover={heartHover}/>
+                            </div>  
                         </div>
                     </Card.Header>
                     <Card.Body>

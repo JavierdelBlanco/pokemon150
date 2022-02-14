@@ -12,10 +12,8 @@ const [pokemonCards,setPokemonCards] = React.useState([]);
 const [page,setPage] = React.useState(1);
 
 const{isPending} = usePokemon();
-const[loading,setLoading] = useState(true);
 
 const cargarPokemon = () => { 
-    setLoading(true);
     let x = [];
     let first = (page - 1) * 30 + 1;
     let quantity =  (page === 6) ? 1 : 30;
@@ -23,7 +21,6 @@ const cargarPokemon = () => {
         x[i] = <PokemonCard key={first + i} id={first + i} />
     }
     setPokemonCards(x);
-    setLoading(false);
 }
 
 React.useEffect( () => {
@@ -49,10 +46,10 @@ return  <main>
                 </Pagination>     
             </article>     
 
-            {isPending || loading ? <Loading/>
-                                  : <div className='pokemon_container'>
-                                      {pokemonCards}
-                                    </div> } 
+            {isPending ? <Loading/>
+                       : <div className='pokemon_container'>
+                            {pokemonCards}
+                         </div> } 
         </main>   
 }
 

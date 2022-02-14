@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import { TypeBadge } from "../components/TypeBadge";
 import { useNavigate } from "react-router-dom";
 import { usePokemon } from "../context/pokemon";
-import { FaHeart, FaHeartBroken, FaRegHeart } from 'react-icons/fa';
+import { FaHeart, FaHeartBroken } from 'react-icons/fa';
 
 import '../styles/PokemonCard.css';
 
@@ -11,18 +11,18 @@ import '../styles/PokemonCard.css';
 
 const PokemonCard = ({id}) => {
 
-    const addFavorite = (id) => {
+    const handleFavorites = (id) => {
         let favorites = localStorage.getItem("Favorites");
         favorites = favorites !== null ? JSON.parse(favorites) : [];
-        if(!favorites.includes(id)){
-          favorites.push(id);
-        };
+        if(favorites.includes(id)){
+            favorites = favorites.filter((x) => x !== id);
+        }else favorites.push(id);
         favorites = localStorage.setItem("Favorites", JSON.stringify(favorites));
         console.log(localStorage.getItem("Favorites"));
-        return null;
+        return null
     }
     
-    const [liked,setLiked] = React.useState(false);
+    const [liked,setLiked] = React.useState(localStorage.getItem("Favorites") !== null ? JSON.parse(localStorage.getItem("Favorites")).includes(id) : false);
     const [heartHover,setHeartHover] = React.useState(false);
     const [pokemon, setPokemon] = React.useState({
         name: '',
@@ -38,12 +38,13 @@ const PokemonCard = ({id}) => {
             setPokemon(getPokemonData(id));
         };
         
-    },[id, heartHover]);
+    },[id,liked,heartHover]);
 
     const handleClick = (e) => {
-        console.log(e);
-        (e.target.nodeName === 'path' ||  e.target.nodeName === 'svg') ? setLiked(!liked)
-                                                                       : navigate(`/pokedex/pokemon/${id}`);
+        if(e.target.nodeName === 'path' ||  e.target.nodeName === 'svg'){
+            setLiked(!liked); 
+            handleFavorites(id);
+        }else navigate(`/pokedex/pokemon/${id}`);
     }
 
     const Icon = ({liked, hover}) => {

@@ -31,6 +31,7 @@
 .card-name{
    align-self: center;
    margin-inline: 20px;
+   width: fit-content;
 }
 
 .other_information{
@@ -41,4 +42,25 @@
 .table_custom{
     margin: 20px;
     height: fit-content;
+}
+
+.heart_n{
+    transform: scale(2,2);
+    position: relative;
+    top: 5px;
+    left: 7px;
+}
+
+.heart_n:hover{
+    color: #e83e34;
+    transition: 0.1s;
+    
+}
+
+.heart_liked_n{
+    color: #e83e34;
+    transform: scale(2,2);
+    position: relative;
+    top: 5px;
+    left: 7px;
 }
