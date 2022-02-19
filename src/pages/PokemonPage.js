@@ -33,7 +33,6 @@ return  <main>
                 <h2>Pokemon</h2>
                 <p>A list of the original 151 Pokémon is shown below.</p>
                 <Pagination className="pagination-custom">
-                    <Pagination.First disabled={1 === page} onClick={() => setPage(1)}/>
                     <Pagination.Prev  disabled={1 === page} onClick={() => setPage((page === 1) ? 1 : (page - 1))}/>
                     <Pagination.Item key={1}  active={1 === page} onClick={() => setPage(1)}>1</Pagination.Item>
                     <Pagination.Item key={2}  active={2 === page} onClick={() => setPage(2)}>2</Pagination.Item>
@@ -42,7 +41,6 @@ return  <main>
                     <Pagination.Item key={5}  active={5 === page} onClick={() => setPage(5)}>5</Pagination.Item>
                     <Pagination.Item key={6}  active={6 === page} onClick={() => setPage(6)}>6</Pagination.Item>
                     <Pagination.Next  disabled={6 === page} onClick={() => setPage((page === 6) ? 6 : (page + 1))}/>
-                    <Pagination.Last  disabled={6 === page} className="pageButton" onClick={() => setPage(6)}/>
                 </Pagination>     
             </article>     
 

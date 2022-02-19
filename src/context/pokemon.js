@@ -2,13 +2,23 @@ import React from "react";
 import { getPokemon } from '../api/pokemon';
 
 
+const fixName = (x) => {
+        let name = x.charAt(0).toUpperCase() + x.slice(1);
+        let hyphen = name.indexOf('-');
+        if(hyphen !== -1){
+            name = name.slice(0, hyphen + 1) + name.charAt(hyphen + 1).toUpperCase() + name.slice(hyphen + 2)
+        }
+        name = name.replace('-',' ');
+        return name;
+}
+
 const fetchPokemon = async(id) => {
     const data = await getPokemon(id);
     const pokemon = {
       id: data.id,
-      name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
-      card_sprite: data.sprites.versions["generation-v"]["black-white"].front_default, 
-      sprites: data.sprites.versions["generation-v"]["black-white"], 
+      name: fixName(data.name),
+      card_sprite: data.sprites.front_default, 
+      sprites: data.sprites, 
       height: data.height,
       weight: data.weight,
       types: data.types,

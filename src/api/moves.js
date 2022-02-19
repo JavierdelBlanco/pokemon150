@@ -1,6 +1,5 @@
-const getMoves = async () => {
-    
-    const url = 'https://pokeapi.co/api/v2/move/';
+const getMoves = async (page) => {
+    const url = `https://pokeapi.co/api/v2/move?offset=${(page-1)*34}&limit=34`;
     
     try {
             let res = await fetch(url);

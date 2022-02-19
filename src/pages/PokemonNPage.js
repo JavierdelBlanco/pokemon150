@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, ListGroup, Tab, Table, Tabs } from "react-bootstrap";
+import { Card, ListGroup, Table, Tab, Tabs } from "react-bootstrap";
 import { TypeBadge } from "../components/TypeBadge";
 import { useParams } from "react-router-dom";
 import { usePokemon } from "../context/pokemon";
@@ -11,6 +11,16 @@ import '../styles/PokemonNPage.css'
 
 const PokemonNPage = () => {
     
+    const fixName = (x) => {
+        let name = x.charAt(0).toUpperCase() + x.slice(1);
+        let hyphen = name.indexOf('-');
+        if(hyphen !== -1){
+            name = name.slice(0, hyphen + 1) + name.charAt(hyphen + 1).toUpperCase() + name.slice(hyphen + 2)
+        }
+        name = name.replace('-',' ');
+        return name;
+    }
+
     const handleFavorite = (id) => {
         let favorites = localStorage.getItem("Favorites");
         favorites = favorites !== null ? JSON.parse(favorites) : [];
@@ -21,7 +31,6 @@ const PokemonNPage = () => {
         console.log(localStorage.getItem("Favorites"));
         return null
     }
-
 
     const[pokemon, setPokemon] = useState({
         id: 0,
@@ -64,16 +73,6 @@ const PokemonNPage = () => {
                .filter( (x) => x.props.ver === 'ultra-sun-ultra-moon' && x.props.lm === 'level-up' )
                .sort((a,b) => a.props.number - b.props.number)
     }
-    
-    const fixName = (x) => {
-        let name = x.charAt(0).toUpperCase() + x.slice(1);
-        let hyphen = name.indexOf('-');
-        if(hyphen !== -1){
-            name = name.slice(0, hyphen + 1) + name.charAt(hyphen + 1).toUpperCase() + name.slice(hyphen + 2)
-        }
-        name = name.replace('-',' ');
-        return name;
-    }
 
     const Icon = ({liked, hover}) => {
         const heartClass = liked ? 'heart_liked_n' : 'heart_n';
@@ -91,11 +90,14 @@ const PokemonNPage = () => {
                     <Card.Header className="card_header_custom">
                         <div className='card-title'>
                             <h2> #{pokemon.id}</h2> 
-                            <h2 className='card-name'>{fixName(pokemon.name)}</h2>
-                        <div className="icon_container_n" 
+                            <h2 className='card-name'>{pokemon.name}</h2>
+                            <div className="icon_container_n" 
                                 onMouseEnter={() => setHeartHover(true)} 
                                 onMouseLeave={() => setHeartHover(false)} 
-                                onClick={() => handleFavorite(pokemon.id)}>
+                                onClick={() => {
+                                    setLiked(!liked);
+                                    handleFavorite(pokemon.id)
+                                }}>
                                 <Icon liked={liked} hover={heartHover}/>
                             </div>  
                         </div>

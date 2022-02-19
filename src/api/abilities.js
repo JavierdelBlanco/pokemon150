@@ -1,5 +1,5 @@
-const getAbilities = async () => {
-    const url = 'https://pokeapi.co/api/v2/ability/';
+const getAbilities = async (page) => {
+    const url = `https://pokeapi.co/api/v2/ability?offset=${(page-1)*34}&limit=34`;
     try {
             let res = await fetch(url);
             if(!res.ok){
