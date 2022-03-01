@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Card, ListGroup, Table, Tab, Tabs } from "react-bootstrap";
 import { TypeBadge } from "../components/TypeBadge";
 import { useParams } from "react-router-dom";
-import { usePokemon } from "../context/pokemon";
 import { Loading } from "../components/Loading";
 import { FaHeart, FaHeartBroken } from 'react-icons/fa';
+import { getPokemon } from "../api/pokemon"
 import '../styles/PokemonNPage.css'
+;
 
 
 
@@ -32,6 +33,23 @@ const PokemonNPage = () => {
         return null
     }
 
+    const fetchPokemon = async(id) => {
+    const data = await getPokemon(id);
+    setPokemon({
+      id: data.id,
+      name: fixName(data.name), 
+      sprites: data.sprites, 
+      height: data.height,
+      weight: data.weight,
+      types: data.types,
+      abilities: data.abilities,
+      moves: data.moves,
+      stats: data.stats 
+      })
+      setIsPending(false);
+      return pokemon;  
+    }
+
     const[pokemon, setPokemon] = useState({
         id: 0,
         name: '', 
@@ -43,19 +61,20 @@ const PokemonNPage = () => {
         moves: [],
         stats: []
     });
-
+    const [isPending,setIsPending] = React.useState(true);
     const [liked,setLiked] = React.useState(null);
     const [heartHover,setHeartHover] = React.useState(false);
-
-    const {getFullPokemon, isPending} = usePokemon();
     const {id} = useParams(); 
+
+    React.useEffect( () => {
+        fetchPokemon(id);
+    },[]);
 
     React.useEffect( () => {
         if(!isPending){
             setLiked(localStorage.getItem("Favorites") !== null ? JSON.parse(localStorage.getItem("Favorites")).includes(pokemon.id) : false);
-            setPokemon(getFullPokemon(id));
         };
-    },[isPending,liked,heartHover]);
+    },[liked,heartHover]);
 
     const Moves = () =>{
         let list = [];

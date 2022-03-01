@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { PokemonCard } from "../components/PokemonCard";
-import { usePokemon } from "../context/pokemon";
 import { Loading } from "../components/Loading";
 import '../styles/FavoritesPage.css';
 
@@ -9,9 +8,9 @@ const FavoritesPage  = () => {
 
 const [pokemonCards,setPokemonCards] = React.useState([]);
 const [load,setLoad] = React.useState(null);
-const{isPending} = usePokemon();
+const [isPending, setIsPending] = React.useState(true);
 
-const cargarPokemon = () => {
+const loadPokemon = () => {
     let x = [];
     let favorites = localStorage.getItem("Favorites");
     favorites = favorites !== null ? JSON.parse(favorites) : []; 
@@ -19,11 +18,12 @@ const cargarPokemon = () => {
         x[i] = <PokemonCard key={favorites[i]} id={favorites[i]}/>
     }
     setPokemonCards(x);
+    setIsPending(false);
 }
 
 React.useEffect(() => {
   setLoad(false);
-  cargarPokemon();
+  loadPokemon();
 }, [load]);
 
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { Pagination, Table } from "react-bootstrap";
 import { getMoves } from "../api/moves";
-import { usePokemon } from "../context/pokemon";
 import { Loading } from "../components/Loading";
 import '../styles/MovesPage.css';
 
@@ -12,9 +11,7 @@ const MovesPage = () => {
 const [page,setPage] = React.useState(1);
 const [pagination,setPagination] = React.useState(1);
 const [moves, setMoves] = React.useState([]);
- const [isPendingMoves, setIsPendingMoves] = React.useState(true);
-
-const{isPending} = usePokemon();
+const [isPendingMoves, setIsPendingMoves] = React.useState(true);
 
 const fixName = (x) => {
         let name = x.charAt(0).toUpperCase() + x.slice(1);
@@ -70,7 +67,7 @@ return  <main>
                 </Pagination>     
             </article>     
 
-            {isPending || isPendingMoves  ? <Loading/>
+            {isPendingMoves  ? <Loading/>
                                           : <div className='moves_container'>
                                               <Table striped bordered hover size='sm' className="table_moves_custom">
                                                 <thead>
