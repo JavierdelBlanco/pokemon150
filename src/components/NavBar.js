@@ -47,7 +47,7 @@ const NavBar = () => {
         <Nav className='nav-custom' justify>
             <Nav.Link className="nav-link-custom" onClick={ () => navigate("/")}>Home</Nav.Link>
             <NavDropdown className="nav-dropdown-custom" title="Pokedex" id="nav-dropdown">
-                <NavDropdown.Item onClick={ () => navigate("/pokedex/pokemon")}>Pokemonn</NavDropdown.Item>
+                <NavDropdown.Item onClick={ () => navigate("/pokedex/pokemon")}>Pokemon</NavDropdown.Item>
                 <NavDropdown.Item onClick={ () => navigate("/pokedex/moves")}>Moves</NavDropdown.Item>
                 <NavDropdown.Item onClick={ () => navigate("/pokedex/abilities")}>Abilities</NavDropdown.Item>
             </NavDropdown>
