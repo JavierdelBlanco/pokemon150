@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Pagination } from "react-bootstrap";
 import { PokemonCard } from "../components/PokemonCard";
 import { Loading } from "../components/Loading";

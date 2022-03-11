@@ -9,14 +9,12 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { PokemonPage } from './pages/PokemonPage';
 import { PokemonNPage } from './pages/PokemonNPage';
 import { SearchPage } from './pages/SearchPage';
-import { PokemonProvider } from "./context/pokemon";
 import { ScrollToTop } from './components/ScrollToTop';
 import './App.css'
 
 const App = () => {
 
     return (
-      <PokemonProvider>
       <BrowserRouter>
         <div className="App">
           <ScrollToTop/>
@@ -33,7 +31,6 @@ const App = () => {
           </Routes>
         </div>
       </BrowserRouter>
-      </PokemonProvider>
   );
 }
 export default App;

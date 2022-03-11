@@ -11,7 +11,7 @@ const MovesPage = () => {
 const [page,setPage] = React.useState(1);
 const [pagination,setPagination] = React.useState(1);
 const [moves, setMoves] = React.useState([]);
-const [isPendingMoves, setIsPendingMoves] = React.useState(true);
+const [isPending, setIsPending] = React.useState(true);
 
 const fixName = (x) => {
         let name = x.charAt(0).toUpperCase() + x.slice(1);
@@ -27,7 +27,7 @@ const fetchMoves = async () => {
             const data = await getMoves(page);
             console.log('data',data);
             setMoves(data.results);
-            setIsPendingMoves(false);
+            setIsPending(false);
 }
 
 React.useEffect(() => {
@@ -67,7 +67,7 @@ return  <main>
                 </Pagination>     
             </article>     
 
-            {isPendingMoves  ? <Loading/>
+            {isPending  ? <Loading/>
                                           : <div className='moves_container'>
                                               <Table striped bordered hover size='sm' className="table_moves_custom">
                                                 <thead>

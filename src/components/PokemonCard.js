@@ -2,14 +2,37 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import { TypeBadge } from "../components/TypeBadge";
 import { useNavigate } from "react-router-dom";
-import { usePokemon } from "../context/pokemon";
 import { FaHeart, FaHeartBroken } from 'react-icons/fa';
 
 import '../styles/PokemonCard.css';
+import { getPokemon } from "../api/pokemon";
+import { Loading } from "./Loading";
 
 
 
 const PokemonCard = ({id}) => {
+
+    const fixName = (x) => {
+        let name = x.charAt(0).toUpperCase() + x.slice(1);
+        let hyphen = name.indexOf('-');
+        if(hyphen !== -1){
+            name = name.slice(0, hyphen + 1) + name.charAt(hyphen + 1).toUpperCase() + name.slice(hyphen + 2)
+        }
+        name = name.replace('-',' ');
+        return name;
+    }
+
+    const fetchPokemon = async(id) => {
+    const data = await getPokemon(id);
+    setPokemon({
+      id: data.id,
+      name: fixName(data.name),
+      sprite: data.sprites.front_default, 
+      types: data.types 
+      });
+      setIsPending(false);
+      return pokemon;  
+    }
 
     const handleFavorites = (id) => {
         let favorites = localStorage.getItem("Favorites");
@@ -24,19 +47,21 @@ const PokemonCard = ({id}) => {
     
     const [liked,setLiked] = React.useState(localStorage.getItem("Favorites") !== null ? JSON.parse(localStorage.getItem("Favorites")).includes(id) : false);
     const [heartHover,setHeartHover] = React.useState(false);
+    const [isPending,setIsPending] = React.useState(true);
     const [pokemon, setPokemon] = React.useState({
+        id: 0,
         name: '',
         sprite: '',
         types: []
     });
 
-    const{ getPokemonData, isPending } = usePokemon();
     const navigate = useNavigate();
 
     React.useEffect( () => {
-        if(!isPending){
-            setPokemon(getPokemonData(id));
-        };
+        fetchPokemon(id);
+    },[id]);
+
+    React.useEffect( () => {
         
     },[id,liked,heartHover]);
 
@@ -55,18 +80,17 @@ const PokemonCard = ({id}) => {
         );
     }
     return (
-    <Card className='card_custom' bg='light' onClick={(e) => handleClick(e)}>
-        <Card.Img className='cardImage' variant='top' src={pokemon.sprite}/>
-        <Card.Body className='cardBody'>
-            <Card.Title>{pokemon.name} {'#' + id}</Card.Title>
-            {pokemon.types.map( (x,i) => <TypeBadge key={i} type={x.type.name} /> )}
-            <div className="icon_container" onMouseEnter={() => setHeartHover(true)} onMouseLeave={() => setHeartHover(false)}>
-             <Icon liked={liked} hover={heartHover}/>
-            </div>
-        </Card.Body>
-        <div className="App">
-    </div>
-    </Card>
+    isPending ? <Loading/> 
+              :<Card className='card_custom' bg='light' onClick={(e) => handleClick(e)}>
+                    <Card.Img className='cardImage' variant='top' src={pokemon.sprite}/>
+                    <Card.Body className='cardBody'>
+                    <Card.Title>{pokemon.name} {'#' + id}</Card.Title>
+                        {pokemon.types.map( (x,i) => <TypeBadge key={i} type={x.type.name} /> )}
+                        <div className="icon_container" onMouseEnter={() => setHeartHover(true)} onMouseLeave={() => setHeartHover(false)}>
+                            <Icon liked={liked} hover={heartHover}/>
+                        </div>
+                    </Card.Body>
+                </Card>
     )
  }
 
