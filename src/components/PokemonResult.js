@@ -51,7 +51,7 @@ const PokemonResult = ({id}) => {
             navigate(`/pokedex/pokemon/${id}`)
         }}>
             <div  className='resultImageContainer'>
-                <img  className='resultImage' src={pokemon.sprite}/>
+                <img alt="result" className='resultImage' src={pokemon.sprite}/>
             </div>
             <div className='resultBody'>
                 <p>{pokemon.name} {'#' + id}</p>

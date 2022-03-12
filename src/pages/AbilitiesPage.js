@@ -25,7 +25,6 @@ const fixName = (x) => {
 
 const fetchAbilities = async () => {
             const data = await getAbilities(page);
-            console.log('data',data);
             setAbilities(data.results);
             setIsPending(false);
 }
@@ -68,22 +67,23 @@ return  <main>
             </article>     
 
             {isPending  ? <Loading/>
-                                          : <div className='moves_container'>
-                                              <Table striped bordered hover size='sm' className="table_moves_custom">
-                                                <thead>
-                                                  <tr>
-                                                    <th key={0}>#{page}</th>
-                                                    <th key={1}>Name</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                  {abilities.map((x,i) => <tr key={(i + (34 * (page-1)) + 1)}> 
-                                                                          <th key={0}>{(i + (34 * (page-1)) + 1)} </th>
-                                                                          <th key={1}>{fixName(x.name)} </th>
-                                                                      </tr>)}
-                                                </tbody>
-                                              </Table>
-                                            </div> } 
+                        : <div className='moves_container'>
+                            <Table striped bordered hover size='sm' className="table_moves_custom">
+                              <thead>
+                                <tr>
+                                  <th key={0}>#{page}</th>
+                                  <th key={1}>Name</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {abilities.map((x,i) => 
+                               <tr key={(i + (34 * (page-1)) + 1)}> 
+                                 <th key={0}>{(i + (34 * (page-1)) + 1)} </th>
+                                 <th key={1}>{fixName(x.name)} </th>
+                                </tr>)}
+                              </tbody>
+                            </Table>
+                          </div> } 
         </main>   
 }
 

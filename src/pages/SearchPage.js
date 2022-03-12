@@ -37,13 +37,11 @@ const SearchPage = () => {
     const searchPokemon = (word) => {
         let names = [];
         names = pokemon.filter((x) => x.name.includes(word) ||  x.name.toUpperCase().includes(word) || x.name.toLowerCase().includes(word));
-        console.log('names', names);
         return names.length !== 0 ? names : 0;
         }
 
     React.useEffect( () => {
             if(!isPending){
-                console.log('pokemon',pokemon);
                 setResults(searchPokemon(word));
             }
     },[isPending,word]);

@@ -1,0 +1,41 @@
+main{
+  width: 100%;
+  margin-block: 50px;
+}
+
+.buttons_container{
+  margin: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button_container{
+  height: 200px;
+  width: 200px;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #dddddd;
+  border-radius: 100%;
+}
+
+.box{
+  padding: 10px;
+}
+
+.img_container{
+  height: 50px;
+  width: 50px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.button_container:hover {
+  transition: 0.5s;
+  transform: scale(1.1,1.1);
+  z-index: 1;
+  cursor: pointer;
+}
